@@ -1,0 +1,33 @@
+{
+  "name": "mpr",
+  "main": "server.js",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skilbjo/mpr.git"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "4.8.5",
+    "body-parser": "latest",
+    "cookie-parser": "latest",
+    "static-favicon": "latest",
+    "express-session": "latest",
+    "morgan": "latest",
+    "method-override": "latest",
+    "express-session":"latest",
+    "errorhandler": "latest",
+    "connect-flash": "latest",
+    "hbs": "2.5.0",
+    "handlebars": "~1.3.0",
+    "bcrypt-nodejs": "latest",
+    "mongoose": "~3.8.1",
+    "mongoose-auto-increment": "3.0.1"
+  },
+  "devDependencies": {
+    "nodemon" : "latest"
+  }
+}

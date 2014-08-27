@@ -7,17 +7,16 @@ var
     express         = require('express'),
     app             = express(),
     morgan          = require('morgan'),
-    favicon         = require('static-favicon'),
+    favicon         = require('serve-favicon'),
     cookieParser    = require('cookie-parser'),
     methodOverride  = require('method-override'),
     session         = require('express-session'),
     errorHandler    = require('errorhandler'),
     bodyParser      = require('body-parser'),
-    hbs  	        = require('hbs'),
+    router          = express.Router(),
+    hbs  	          = require('hbs'),
+    Sequelize       = require('sequelize'),
     configDB        = require('./config/database.js'),
-    mongoose        = require('mongoose'),
-    connection      = mongoose.connect(configDB.url),
-    autoIncrement   = require('mongoose-auto-increment'),
     env             = (process.env.NODE_ENV || 'development');
 
 // configuration ===============================================================
@@ -25,12 +24,20 @@ app.set('port', process.env.PORT || 8080);
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(cookieParser());
 app.use(methodOverride());
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(errorHandler());
 app.use(morgan('dev'));
 app.use('/public', express.static('public'));
 app.use(flash());
-autoIncrement.initialize(connection);
+
+var sequelize = new Sequelize(configDB.url, {
+  host: 'localhost',
+  port: '5432',
+  dialect: 'postgres'
+});
 
 // handlebars engine for templating :-}
 app.set('view engine', 'hbs');
@@ -41,13 +48,11 @@ hbs.handlebars === require('handlebars');
 hbs.registerPartials(__dirname + '/app/views/templates');
 hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     var operators, result;
-    
     if (options === undefined) {
         options = rvalue;
         rvalue = operator;
         operator = "===";
     }
-    
     operators = {
         '=='    : function (l, r) { return l == r; },
         '==='   : function (l, r) { return l === r; },
@@ -59,37 +64,34 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
         '>='    : function (l, r) { return l >= r; },
         'typeof': function (l, r) { return typeof l == r; }
     };
-    
     if (!operators[operator]) {
         throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
     }
-    
     result = operators[operator](lvalue, rvalue);
-    
     if (result) {
         return options.fn(this);
     } else {
         return options.inverse(this);
     }
-
 });
 
 // routes ======================================================================
 // models =============
-var models = {
-    merchant       : require('./app/models/merchant.js')
+var model = {
+  merchant       : require('./app/model/merchant.js')
 };
 
 // controllers ========
-var controllers = {
-    static_pages  : require('./app/controllers/static_pages.js'),
-    merchant      : require('./app/controllers/merchant.js')
+var controller = {
+  static_pages  : require('./app/controller/static_pages.js'),
+  merchant      : require('./app/controller/merchant.js')
 };
 
-require('./app/routes.js')(app, passport, models, controllers);
+
+require('./app/routes.js')(app, model, controller);
 // require('./config/passport')(passport); // pass passport for configuration
 
-// launch ======================================================================
+// launch ===========
 app.listen(app.get('port'), function(){
   console.log('The magic happens on port ' + app.get('port'));
 });

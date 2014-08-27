@@ -1,3 +1,4 @@
 exports.index = function(req, res) {
-  res.render('static_pages/index');
+	res.send('hi i am /');
+  //res.render('static_pages/index');
 };

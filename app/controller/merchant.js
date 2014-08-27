@@ -1,8 +1,9 @@
 // GET, /merchants, index
 exports.index = function(req, res, models) {
-  models.merchants.find( {} , function(err, merchants) {
-    res.json(merchants);
-  });
+  res.send('hi');
+  // models.merchants.find( {} , function(err, merchants) {
+  //   res.json(merchants);
+  // });
 };
 /*
 // GET, /users/news, new

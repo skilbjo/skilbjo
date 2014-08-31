@@ -86,11 +86,9 @@ require('./app/routes.js')(app, model, controller);
 app.listen(app.get('port'), function(){
   console.log('The magic happens on port ' + app.get('port'));
   sequelize.authenticate().complete(function(err) {
-    if (!!err) {
+    if (err) {
       console.log('Unable to connect to the database:', err)
-    } else {
-      console.log('Connection has been established successfully.')
-    }
+    } else { console.log('Connection has been established successfully.') }
   });
 });
 

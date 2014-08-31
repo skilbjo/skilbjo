@@ -17,6 +17,7 @@ var
     hbs  	          = require('hbs'),
     Sequelize       = require('sequelize'),
     configDB        = require('./config/database.js'),
+    sequelize       = new Sequelize(configDB.url, { host: configDB.host, port: configDB.DBport, dialect: 'postgres' }),
     env             = (process.env.NODE_ENV || 'development');
 
 // configuration ===============================================================
@@ -24,20 +25,12 @@ app.set('port', process.env.PORT || 8080);
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(cookieParser());
 app.use(methodOverride());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(errorHandler());
 app.use(morgan('dev'));
 app.use('/public', express.static('public'));
 app.use(flash());
-
-var sequelize = new Sequelize(configDB.url, {
-  host: 'localhost',
-  port: '5432',
-  dialect: 'postgres'
-});
 
 // handlebars engine for templating :-}
 app.set('view engine', 'hbs');
@@ -87,12 +80,17 @@ var controller = {
   merchant      : require('./app/controller/merchant.js')
 };
 
-
 require('./app/routes.js')(app, model, controller);
-// require('./config/passport')(passport); // pass passport for configuration
 
 // launch ===========
 app.listen(app.get('port'), function(){
   console.log('The magic happens on port ' + app.get('port'));
+  sequelize.authenticate().complete(function(err) {
+    if (!!err) {
+      console.log('Unable to connect to the database:', err)
+    } else {
+      console.log('Connection has been established successfully.')
+    }
+  });
 });
 

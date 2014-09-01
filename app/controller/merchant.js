@@ -1,6 +1,11 @@
+// var db = require('./model')
+
 // GET, /merchants, index
-exports.index = function(req, res, model) {
-  model.merchant.find(1).success(function(merchants) {
+exports.index = function(req, res, model, app, db) {
+  // var Merchant = app.get('models').Merchant;
+  // Merchant.findAll().success(function(merchants) { // works
+  db.Merchant.findAll().success(function(merchants) { // works
+    console.log(merchants);
     res.json(merchants);
   });
 

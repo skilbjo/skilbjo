@@ -10,6 +10,6 @@ module.exports = function(app, model, controller) {
 
 // MERCHANTS ======================
   // RESTful API ======================
-  app.get('/merchants', function(req, res) { controller.merchant.index(req, res, model); }); 
+  app.get('/merchants', function(req, res) { controller.merchant.index(req, res, model, app, db); }); 
 
 };

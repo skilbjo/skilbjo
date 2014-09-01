@@ -12,7 +12,6 @@ var
     , errorHandler    = require('errorhandler')
     , bodyParser      = require('body-parser')
     , hbs  	          = require('hbs')
-    , pg              = require('pg')
     , db              = require('./app/model/index.js')
     , env             = (process.env.NODE_ENV || 'development');
 
@@ -25,9 +24,12 @@ app.set('port', process.env.PORT || 8080);
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/public', express.static('public'));
 
-// viw template engine
+// view template engine
 app.set('view engine', 'hbs');
-app.set('views', __dirname + '/app/views');
+app.set('views', __dirname + './app/views');
+
+// models
+app.set('models', require('./app/model'));
 
 // handlebars helpers =================================================
 hbs.handlebars = require('handlebars');  

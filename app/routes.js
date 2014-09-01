@@ -1,3 +1,5 @@
+var db = require('./model')
+
 module.exports = function(app, model, controller) {
 
 // static routes ===============================================================

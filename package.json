@@ -11,22 +11,24 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
-    "express": "4.8.5",
-    "body-parser": "latest",
-    "cookie-parser": "latest",
-    "serve-favicon": "latest",
-    "express-session": "latest",
-    "morgan": "latest",
-    "method-override": "latest",
-    "express-session":"latest",
-    "errorhandler": "latest",
-    "connect-flash": "latest",
-    "hbs": "2.5.0",
-    "handlebars": "~1.3.0",
-    "sequelize": "1.7.9",
-    "pg": "3.4.1"
+    "express": "4.8.5"
+    , "body-parser": "1.6.7"
+    , "cookie-parser": "1.3.2"
+    , "serve-favicon": "2.1.1"
+    , "express-session": "1.7.6"
+    , "morgan": "1.2.3"
+    , "method-override": "2.1.3"
+    , "express-session":"1.7.6"
+    , "errorhandler": "1.1.1"
+    , "connect-flash": "0.1.1"
+    , "hbs": "2.7.0"
+    , "handlebars": "2.0.0-beta.1"
+    , "sequelize": "1.7.9"
+    , "pg": "3.4.1"
+    , "lodash": "2.4.1"
+    , "mysql": "2.4.3"
   },
   "devDependencies": {
-    "nodemon" : "latest"
+    "nodemon" : "1.2.1"
   }
 }

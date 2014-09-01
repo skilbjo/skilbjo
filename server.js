@@ -1,71 +1,50 @@
-// server.js
-
-// set up ======================================================================
+// set up =================
 var 
-    http            = require('http'),
-    flash           = require('connect-flash'),
-    express         = require('express'),
-    app             = express(),
-    morgan          = require('morgan'),
-    favicon         = require('serve-favicon'),
-    cookieParser    = require('cookie-parser'),
-    methodOverride  = require('method-override'),
-    session         = require('express-session'),
-    errorHandler    = require('errorhandler'),
-    bodyParser      = require('body-parser'),
-    router          = express.Router(),
-    hbs  	          = require('hbs'),
-    Sequelize       = require('sequelize'),
-    configDB        = require('./config/database.js'),
-    sequelize       = new Sequelize(configDB.url, { host: configDB.host, port: configDB.DBport, dialect: 'postgres' }),
-    env             = (process.env.NODE_ENV || 'development');
+    http            = require('http')
+    , flash           = require('connect-flash')
+    , express         = require('express')
+    , app             = express()
+    , morgan          = require('morgan')
+    , favicon         = require('serve-favicon')
+    , cookieParser    = require('cookie-parser')
+    , methodOverride  = require('method-override')
+    , session         = require('express-session')
+    , errorHandler    = require('errorhandler')
+    , bodyParser      = require('body-parser')
+    , hbs  	          = require('hbs')
+    , pg              = require('pg')
+    , db              = require('./app/model/index.js')
+    , env             = (process.env.NODE_ENV || 'development');
 
-// configuration ===============================================================
+// configuration ==============
+  // boilerplate
+app.use(cookieParser()); app.use(methodOverride()); app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); app.use(errorHandler()); app.use(morgan('dev'));  app.use(flash());
+
 app.set('port', process.env.PORT || 8080);
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(cookieParser());
-app.use(methodOverride());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(errorHandler());
-app.use(morgan('dev'));
 app.use('/public', express.static('public'));
-app.use(flash());
 
-// handlebars engine for templating :-}
+// viw template engine
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/app/views');
 
-// register handlebars helpers =================================================
-hbs.handlebars === require('handlebars');
+// handlebars helpers =================================================
+hbs.handlebars = require('handlebars');  
 hbs.registerPartials(__dirname + '/app/views/templates');
 hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     var operators, result;
-    if (options === undefined) {
-        options = rvalue;
-        rvalue = operator;
-        operator = "===";
-    }
+    if (options === undefined) { options = rvalue; rvalue = operator; operator = "==="; }
     operators = {
-        '=='    : function (l, r) { return l == r; },
-        '==='   : function (l, r) { return l === r; },
-        '!='    : function (l, r) { return l != r; },
-        '!=='   : function (l, r) { return l !== r; },
-        '<'     : function (l, r) { return l < r; },
-        '>'     : function (l, r) { return l > r; },
-        '<='    : function (l, r) { return l <= r; },
-        '>='    : function (l, r) { return l >= r; },
+        '=='    : function (l, r) { return l == r; }, '==='   : function (l, r) { return l === r; },
+        '!='    : function (l, r) { return l != r; }, '!=='   : function (l, r) { return l !== r; },
+        '<'     : function (l, r) { return l < r; }, '>'     : function (l, r) { return l > r; },
+        '<='    : function (l, r) { return l <= r; }, '>='    : function (l, r) { return l >= r; },
         'typeof': function (l, r) { return typeof l == r; }
     };
-    if (!operators[operator]) {
-        throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
-    }
+    if (!operators[operator]) { throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator); }
     result = operators[operator](lvalue, rvalue);
-    if (result) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
+    if (result) { return options.fn(this); } else { return options.inverse(this); }
 });
 
 // routes ======================================================================
@@ -83,12 +62,11 @@ var controller = {
 require('./app/routes.js')(app, model, controller);
 
 // launch ===========
-app.listen(app.get('port'), function(){
-  console.log('The magic happens on port ' + app.get('port'));
-  sequelize.authenticate().complete(function(err) {
-    if (err) {
-      console.log('Unable to connect to the database:', err)
-    } else { console.log('Connection has been established successfully.') }
-  });
+db.sequelize.sync({ force: true }).complete(function(err) {
+  if (err) { throw err[0] ; } else {
+    http.createServer(app).listen(app.get('port'), function(){ 
+      console.log('The magic happens on port ' + app.get('port'));
+    });
+  }
 });
 

@@ -1,9 +1,13 @@
 // GET, /merchants, index
 exports.index = function(req, res, model) {
-  model.merchant.findAll().success(function(merchants) {
-    console.log('hi im here');
+  model.merchant.find(1).success(function(merchants) {
     res.json(merchants);
   });
+
+  // findAll().success(function(merchants) {
+  //   console.log('hi im here');
+  //   res.json(merchants);
+  // });
 };
 
 /*

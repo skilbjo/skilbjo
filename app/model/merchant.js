@@ -11,6 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     //   set: function(v) { this.setDataValue('title', v.toString()); }
     // }
   }, {
+    tableName: 'Merchants',
+    timestamps: false,
     classMethods: {
       associate: function(models) {
         Merchant.hasMany(models.Transaction);

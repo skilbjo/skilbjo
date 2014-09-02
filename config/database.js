@@ -8,5 +8,6 @@ module.exports =  {
 	'DBport': auth.DBport,
 	'database': auth.database,
 	'username': auth.username,
-	'password': auth.password
+	'password': auth.password,
+	'dialect': auth.dialect
 };

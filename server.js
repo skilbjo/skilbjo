@@ -1,4 +1,4 @@
-// set up =================
+// set up =====================
 var 
     http            = require('http')
     , flash           = require('connect-flash')
@@ -31,7 +31,7 @@ app.set('views', __dirname + './app/views');
 // models
 app.set('models', require('./app/model'));
 
-// handlebars helpers =================================================
+// handlebars helpers =========
 hbs.handlebars = require('handlebars');  
 hbs.registerPartials(__dirname + '/app/views/templates');
 hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
@@ -49,10 +49,11 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     if (result) { return options.fn(this); } else { return options.inverse(this); }
 });
 
-// routes ======================================================================
+// routes ===================
 // models =============
 var model = {
-  merchant       : require('./app/model/merchant.js')
+  merchant: app.get('models').Merchant,
+  transaction: app.get('models').Transaction
 };
 
 // controllers ========
@@ -63,7 +64,7 @@ var controller = {
 
 require('./app/routes.js')(app, model, controller);
 
-// launch ===========
+// launch ===================
 db.sequelize.sync({ force: true }).complete(function(err) {
   if (err) { throw err[0] ; } else {
     http.createServer(app).listen(app.get('port'), function(){ 

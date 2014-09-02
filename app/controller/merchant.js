@@ -1,76 +1,71 @@
-// var db = require('./model')
-
 // GET, /merchants, index
-exports.index = function(req, res, model, app, db) {
-  // var Merchant = app.get('models').Merchant;
-  // Merchant.findAll().success(function(merchants) { // works
-  db.Merchant.findAll().success(function(merchants) { // works
-    console.log(merchants);
+exports.index = function(req, res, model) {
+  model.merchant.findAll().success(function(merchants) {
     res.json(merchants);
   });
-
-  // findAll().success(function(merchants) {
-  //   console.log('hi im here');
-  //   res.json(merchants);
-  // });
 };
+
+// GET, /merchants/:id, show
+exports.show = function(req, res, model) {
+  model.merchant
+  .find({ where: { id: req.params.id } })
+  .complete(function(err, merchant) {
+    if(err || !merchant) {
+      res.json(err); return;
+    } else {
+      res.json(merchant);
+    }
+  });
+};  
+
+// POST, /merchants/:id, create
+exports.create = function(req, res, model) {
+  model.merchant
+  .create({ 
+    id: req.params.id, 
+    name: 'panda' 
+  })
+  .complete(function(err, merchant) {
+    if(err || !merchant) {
+      res.json(err); return;
+    } else {
+      res.json(merchant);
+    }
+  });
+};
+
+// GET, /merchants/new, new
+exports.new = function(req, res, model) {
+  console.log('placeholder');
+};
+
+// GET, /merchants/:id/edit
+exports.edit = function(req, res, model) {
+  console.log('placeholder');
+};
+
+// PUT, /merchants/:id, update
+exports.update = function(req, res, model) {
+
+  console.log('placeholder');
+};
+
+
+// exports.new = function(req, res, models) {
+//   var id = req.user._id;
+//   models.users.find( { _id : id } , function(err, users) {
+//     var user = users[0];
+//     res.render('user/addinfo', {
+//       user      : user,
+//       message   : req.flash('signupMessage')
+//     });
+//   });
+// };
+
+
+
 
 /*
-// GET, /users/news, new
-exports.new = function(req, res, models) {
-  var id = req.user._id;
-  models.users.find( { _id : id } , function(err, users) {
-    var user = users[0];
-    res.render('user/addinfo', {
-      user      : user,
-      message   : req.flash('signupMessage')
-    });
-  });
-};
-
-// POST, /users, create
-exports.create = function(req, res, models) { 
-  var id = req.user._id;
-  models.users.find({ _id : id }, function(err, users) {
-    if (!users.length) {
-      res.send('User with an id of ' + id + ' not found.');
-      return;
-    }
-
-    var user = users[0]; // mongo returns an array of the objects
-    user.info.firstName     = req.body.firstname;
-    user.info.lastName      = req.body.lastname;
-    user.info.mobileNo      = req.body.mobile;
-    user.info.streetAddress = req.body.street;
-    user.info.cityAddress   = req.body.city;
-    user.info.stateAddress  = req.body.state;
-    user.save();
-
-    res.redirect('/users/' + req.user._id);   
-  });
-};
-
-// GET, /users/:id, show
-exports.show = function (req, res, models) {
-  var id = req.params.id;
-  var user = req.user;
-
-  if (!user.info.firstName) {
-    res.redirect('/users/new');
-    return;
-  }
-  models.users.find( {} , function(req, users) { 
-    var users = users;
-    models.companies.find( {} , function (req, companies) {
-      res.render('user/profile', {       // this doesn't work
-        user          : user,
-        users         : users,
-        companies     : companies
-      });
-    });
-  });
-};
-
 // GET, users/:id/edit, edit
 exports.edit = function (req, res) {
   res.render('user/edit', { user : req.params.id });
@@ -151,35 +146,6 @@ exports.associatePost = function (req, res, models) {
     // res.redirect('/users/' + req.user._id + '?associated=success');  
   }
 
-};
-
-exports.unlinkLocal = function (req, res) {
-  var user            = req.user;
-  user.local.email    = undefined;
-  user.local.password = undefined;
-  user.save();
-  res.redirect('/users/' + req.user._id);
-};
-
-exports.unlinkFacebook = function (req, res) {
-  var user            = req.user;
-  user.facebook.token = undefined;
-  user.save();
-  res.redirect('/users/' + req.user._id);
-};
-
-exports.unlinkTwitter = function (req, res) {
-  var user            = req.user;
-  user.twitter.token = undefined;
-  user.save();
-  res.redirect('/users/' + req.user._id);
-};
-
-exports.unlinkGoogle = function (req, res) {
-  var user            = req.user;
-  user.google.token = undefined;
-  user.save();
-  res.redirect('/users/' + req.user._id);
 };
 
 exports.logout = function (req, res) {

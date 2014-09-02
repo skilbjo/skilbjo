@@ -3,6 +3,8 @@ module.exports = function(sequelize, DataTypes) {
     id: DataTypes.STRING,
     amount: DataTypes.DECIMAL
   }, {
+    tableName: 'Transaction',
+    timestamps: false, 
     classMethods: {
       associate: function(models) {
         Transaction.belongsTo(models.Merchant);

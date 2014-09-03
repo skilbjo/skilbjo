@@ -5,20 +5,12 @@ exports.index = function(req, res, model) {
   });
 };
 
-// GET, /merchants/:id, show
-exports.show = function(req, res, model) {
-  model.merchant
-  .find({ where: { MerchantId: req.params.id } })
-  .complete(function(err, merchant) {
-    if(err || !merchant) {
-      res.json(err); return;
-    } else {
-      res.json(merchant);
-    }
-  });
-};  
+// GET, /merchants/new, new
+exports.new = function(req, res) {
+  res.render('merchant/new');
+};
 
-// POST, /merchants/:id, create
+// POST, /merchants, create
 exports.create = function(req, res, model) {
   var id = req.body.merchant_id;       //  || req.param('id');
   var name = req.body.merchant_name;   //  || req.param('name');
@@ -38,10 +30,18 @@ exports.create = function(req, res, model) {
   });
 };
 
-// GET, /merchants/new, new
-exports.new = function(req, res) {
-  res.render('merchant/new');
-};
+// GET, /merchants/:id, show
+exports.show = function(req, res, model) {
+  model.merchant
+  .find({ where: { MerchantId: req.params.id } })
+  .complete(function(err, merchant) {
+    if(err || !merchant) {
+      res.json(err); return;
+    } else {
+      res.json(merchant);
+    }
+  });
+};  
 
 // GET, /merchants/:id/edit
 exports.edit = function(req, res, model) {
@@ -77,48 +77,25 @@ exports.update = function(req, res, model) {
   });
 };
 
+// DELETE, users/:id, destroy
+exports.destroy = function (req, res, model) {
+  model.merchant
+  .destroy({ MerchantId: req.params.id } )
+  .success(function() {
+      res.json({ message: 'Deleted' });
+  });
 
-// exports.new = function(req, res, models) {
-//   var id = req.user._id;
-//   models.users.find( { _id : id } , function(err, users) {
-//     var user = users[0];
-//     res.render('user/addinfo', {
-//       user      : user,
-//       message   : req.flash('signupMessage')
-//     });
-//   });
-// };
-
-
+  //   .find({ where: { MerchantId: req.body.merchant_id } })
+  // .on('success', function(m) {
+  //   m.destroy({ where: { MerchantId: req.body.merchant_id } })
+  //   .success(function() {
+  //     console.log('deleted');
+  //   });
+  // });
+};
 
 
 /*
-// GET, users/:id/edit, edit
-exports.edit = function (req, res) {
-  res.render('user/edit', { user : req.params.id });
-};
-
-// PUT, users/:id, update
-exports.update = function (req, res, models) {
-  var id = req.params.id;
-  models.users.find({ _id : id }, function(err, users) {
-    if (!users.length) {
-      res.send('User with an id of ' + id + ' not found.');
-      return;
-    }
-
-    var user = users[0]; // mongo returns an array of the objects
-    user.info.firstName     = req.body.firstname;
-    user.info.lastName      = req.body.lastname;
-    user.info.mobileNo      = req.body.mobile;
-    user.info.streetAddress = req.body.street;
-    user.info.cityAddress   = req.body.city;
-    user.info.stateAddress  = req.body.state;
-    user.save();
-
-    res.redirect('/users/' + req.user._id);   
-  });
-};
 
 // DELETE, users/:id, destroy
 exports.destroy = function (req, res, models) {

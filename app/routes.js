@@ -14,7 +14,7 @@ module.exports = function(app, model, controller) {
    app.route('/merchants/:id([0-9]+)')
    	.get(function(req, res) { controller.merchant.show(req, res, model); })
    	.put(function(req, res) { controller.merchant.update(req, res, model) })
-   	.delete(function(req, res) { res.send('delete to /merchants ' + req.params.id ); });
+   	.delete(function(req, res) { controller.merchant.destroy(req, res, model) });
 
   app.route('/merchants/new')
   	.get(function(req, res) { controller.merchant.new(req, res); });

@@ -9,12 +9,17 @@ module.exports = function(app, model, controller) {
   // RESTful API ==================
   app.route('/merchants')
     .get(function(req, res) { controller.merchant.index(req, res, model); })
-    .post(function(req, res) { res.send('post to /merchants'); } );
-
-   app.route('/merchants/:id')
-   	.get(function(req, res) { controller.merchant.show(req, res, model); })
    	.post(function(req, res) { controller.merchant.create(req, res, model); })
-   	.put(function(req, res) { res.send('put to /merchants ' + req.params.id ); })
+
+   app.route('/merchants/:id([0-9]+)')
+   	.get(function(req, res) { controller.merchant.show(req, res, model); })
+   	.put(function(req, res) { controller.merchant.update(req, res, model) })
    	.delete(function(req, res) { res.send('delete to /merchants ' + req.params.id ); });
+
+  app.route('/merchants/new')
+  	.get(function(req, res) { controller.merchant.new(req, res); });
+
+   app.route('/merchants/:id([0-9]+)/edit')
+   	.get(function(req, res) { controller.merchant.edit(req, res, model); });
 
 };

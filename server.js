@@ -26,21 +26,21 @@ app.use('/public', express.static('public'));
 
 // view template engine
 app.set('view engine', 'hbs');
-app.set('views', __dirname + './app/views');
+app.set('views', __dirname + '/app/view');
 
 // models
 app.set('models', require('./app/model'));
 
 // handlebars helpers =========
 hbs.handlebars = require('handlebars');  
-hbs.registerPartials(__dirname + '/app/views/templates');
+hbs.registerPartials(__dirname + '/app/view/template');
 hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     var operators, result;
     if (options === undefined) { options = rvalue; rvalue = operator; operator = "==="; }
     operators = {
         '=='    : function (l, r) { return l == r; }, '==='   : function (l, r) { return l === r; },
         '!='    : function (l, r) { return l != r; }, '!=='   : function (l, r) { return l !== r; },
-        '<'     : function (l, r) { return l < r; }, '>'     : function (l, r) { return l > r; },
+        '<'     : function (l, r) { return l < r; }, '>'      : function (l, r) { return l > r; },
         '<='    : function (l, r) { return l <= r; }, '>='    : function (l, r) { return l >= r; },
         'typeof': function (l, r) { return typeof l == r; }
     };
@@ -52,8 +52,8 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 // routes ===================
 // models =============
 var model = {
-  merchant: app.get('models').Merchant,
-  transaction: app.get('models').Transaction
+  merchant      : app.get('models').Merchant,
+  transaction   : app.get('models').Transaction
 };
 
 // controllers ========
@@ -65,7 +65,7 @@ var controller = {
 require('./app/routes.js')(app, model, controller);
 
 // launch ===================
-db.sequelize.sync({ force: true }).complete(function(err) {
+db.sequelize.sync({ force: false }).complete(function(err) {
   if (err) { throw err[0] ; } else {
     http.createServer(app).listen(app.get('port'), function(){ 
       console.log('The magic happens on port ' + app.get('port'));

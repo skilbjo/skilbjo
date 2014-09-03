@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Transaction = sequelize.define('Transaction', {
-    id: DataTypes.STRING,
-    amount: DataTypes.DECIMAL
+    TransactionId: DataTypes.STRING,
+    Amount: DataTypes.DECIMAL
   }, {
     tableName: 'Transaction',
     timestamps: false, 

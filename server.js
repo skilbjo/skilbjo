@@ -14,7 +14,7 @@ var
     , hbs  	          = require('hbs')
     , db              = require('./app/model/index.js')
     , auth            = require('./config/auth.js')
-    , stripe          = require('stripe')(auth.stripeTestSecret)
+    , stripe          = require('stripe')(process.env.stripeTestSecret || auth.stripeTestSecret)
     , env             = (process.env.NODE_ENV || 'development');
 
 // configuration ==============

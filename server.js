@@ -13,8 +13,8 @@ var
     , bodyParser      = require('body-parser')
     , hbs  	          = require('hbs')
     , db              = require('./app/model/index.js')
-    , auth            = require('./config/auth.js')
-    , stripe          = require('stripe')(process.env.stripeTestSecret || auth.stripeTestSecret)
+    , config          = require('./config/config.js')
+    , stripe          = require('stripe')(process.env.stripeTestSecret || config.stripe)
     , env             = (process.env.NODE_ENV || 'development');
 
 // configuration ==============

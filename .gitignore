@@ -3,3 +3,4 @@ node_modules
 *.sock
 config/auth.js
 .env
+*.env

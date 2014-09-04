@@ -12,6 +12,8 @@
   },
   "scripts": {
     "start": "nodemon server.js"
+    , "foreman": "nf"
+    , "nf": "nf"
   },
   "dependencies": {
     "express": "4.8.5"
@@ -32,6 +34,7 @@
     , "stripe": "2.8.0"
   },
   "devDependencies": {
-    "nodemon" : "1.2.1"
+    "nodemon": "1.2.1"
+    , "foreman": "0.4.2"
   }
 }

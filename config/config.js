@@ -12,6 +12,6 @@ module.exports =  {
 	, 'db_host'		: (process.env.DB_HOST 	/*|| auth.db_host*/)
 	, 'username' 	: (process.env.USERNAME /*|| auth.username*/)
 	, 'password'	: (process.env.PASSWORD /*|| auth.password*/)
-	, 'dialect'		: (process.env.DIALECT 	/*|| auth.dialect*/)
+	, 'dialect'		: (process.env.DB_DIALECT 	/*|| auth.dialect*/)
 	, 'stripe' 		: (process.env.STRIPE_TEST_SECRET /*|| auth.stripeTestSecret*/)
 };

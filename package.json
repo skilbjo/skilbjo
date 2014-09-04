@@ -12,9 +12,6 @@
   },
   "scripts": {
     "start": "nodemon server.js"
-    , "foreman": "nf"
-    , "nf": "nf"
-    , "sequelize": "sequelize"
   },
   "dependencies": {
     "express": "4.8.5"
@@ -36,6 +33,5 @@
   },
   "devDependencies": {
     "nodemon": "1.2.1"
-    , "foreman": "0.4.2"
   }
 }

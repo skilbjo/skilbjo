@@ -1,4 +1,6 @@
 // set up =====================
+require('newrelic');
+
 var 
     http            = require('http')
     , flash           = require('connect-flash')

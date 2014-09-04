@@ -56,8 +56,23 @@ Then view the app your browser:  `http://localhost:8080`
 ###Deploy
 
 ```
+git commit -am 'heroku' && git push && git push heroku master
+
 heroku config:push --env=prod.env
+
+heroku ps
+
+heroku logs -t
 ```
+
+###Follow Up
+How to run (in the command line with either Foreman/NF or in the Procfile) the different process.env.VARIABLE config vars
+
+nf start -e env/prod.env -x 8080
+
+How to change the Foreman/NF port from 5000 to 8080
+
+Answer: nf start -p 8080 || nf start -x 8080
 
 ###Useful tricks
 
@@ -81,4 +96,4 @@ events.js:72
 Error: failed to connect to [localhost:27017]
 ```
 
-Just run this: `$ mongod --fork` or `$ postgres -D /usr/local/var/postgres` to start the database (and to kill the database process, run `$ killall mongod`)
+Just run this: `$ postgres -D /usr/local/var/postgres --fork` or `$ postgres -D /usr/local/var/postgres` to start the database (and to kill the database process, run `$ killall mongod`)

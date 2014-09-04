@@ -14,8 +14,9 @@ var
     , hbs  	          = require('hbs')
     , db              = require('./app/model/index.js')
     , config          = require('./config/config.js')
-    , stripe          = require('stripe')(process.env.stripeTestSecret || config.stripe)
+    , stripe          = require('stripe')(process.env.stripeTestSecret)
     , env             = (process.env.NODE_ENV || 'development');
+
 
 // configuration ==============
   // boilerplate

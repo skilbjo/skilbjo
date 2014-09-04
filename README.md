@@ -53,6 +53,12 @@ Configuration is now done... time to run the app :D
 	
 Then view the app your browser:  `http://localhost:8080`
 
+###Deploy
+
+```
+heroku config:push --env=prod.env
+```
+
 ###Useful tricks
 
 If for some reason you get something like this:

@@ -3,7 +3,8 @@ var fs        = require('fs')
   , Sequelize = require('sequelize')
   , lodash    = require('lodash')
   , config  = require('../../config/config.js')
-  , sequelize = new Sequelize(config.db_host, config.username, config.password, { host: config.host, port: config.db_port, dialect: config.dialect })
+  , sequelize = new Sequelize(process.env.DATABASE_URL)
+  // , sequelize = new Sequelize(config.db_host, config.username, config.password, { host: config.host, port: config.db_port, dialect: config.dialect })
   , db        = {};
  
 fs.readdirSync(__dirname).filter(function(file) { return (file.indexOf('.') !== 0) && (file !== 'index.js'); })

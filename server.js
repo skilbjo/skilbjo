@@ -13,6 +13,8 @@ var
     , bodyParser      = require('body-parser')
     , hbs  	          = require('hbs')
     , db              = require('./app/model/index.js')
+    , auth            = require('./config/auth.js')
+    , stripe          = require('stripe')(auth.stripeTestSecret)
     , env             = (process.env.NODE_ENV || 'development');
 
 // configuration ==============
@@ -49,7 +51,7 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     if (result) { return options.fn(this); } else { return options.inverse(this); }
 });
 
-// routes ===================
+// MVC Definitions =============
 // models =============
 var model = {
   merchant      : app.get('models').Merchant,
@@ -62,7 +64,12 @@ var controller = {
   merchant      : require('./app/controller/merchant.js')
 };
 
-require('./app/routes.js')(app, model, controller);
+// routes =============
+require('./app/routes.js')(app
+  , model
+  , controller
+  , stripe
+  );
 
 // launch ===================
 db.sequelize.sync({ force: false }).complete(function(err) {

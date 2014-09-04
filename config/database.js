@@ -1,9 +1,9 @@
 var auth = require('./auth.js');
 
 module.exports =  {
-	'url': 'postgres://'+ 
-			auth.username +'@' + auth.host + ':' + 
-			auth.hostport +'/' + auth.database,
+	'url': auth.dialect + '://' + 
+			auth.username + '@' + auth.host + ':' + 
+			auth.hostport + '/' + auth.database,
 	'host': auth.host,
 	'DBport': auth.DBport,
 	'database': auth.database,

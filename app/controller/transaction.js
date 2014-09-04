@@ -1,21 +1,25 @@
-// GET, /merchants, index
+// GET, /transactions, index
 exports.index = function(req, res, model) {
   model.merchant.findAll().success(function(merchants) {
     res.json(merchants);
   });
 };
 
-// GET, /merchants/new, new
+// GET, /transactions/new, new
 exports.new = function(req, res) {
   res.render('merchant/new');
 };
 
-// POST, /merchants, create
+// POST, /transactions, create
 exports.create = function(req, res, model) {
+  var id = req.body.merchant_id;       //  || req.param('id');
+  var name = req.body.merchant_name;   //  || req.param('name');
+  console.log(req.body);
+
   model.merchant
   .create({ 
-    MerchantId: req.body.merchant_id, 
-    Name: req.body.merchant_name 
+    MerchantId: id, 
+    Name: name 
   })
   .complete(function(err, merchant) {
     if(err || !merchant) {
@@ -24,9 +28,21 @@ exports.create = function(req, res, model) {
       res.json(merchant);
     }
   });
+
+/*
+https://stripe.com/docs/api/node
+
+  stripe.charges.create({
+  amount: 400,
+  currency: "usd",
+  card: "tok_2xMip06Pyco4ZO", // obtained with Stripe.js
+  metadata: {'order_id': '6735'}
+});
+
+*/
 };
 
-// GET, /merchants/:id, show
+// GET, /transactions/:id, show
 exports.show = function(req, res, model) {
   model.merchant
   .find({ where: { MerchantId: req.params.id } })
@@ -39,7 +55,7 @@ exports.show = function(req, res, model) {
   });
 };  
 
-// GET, /merchants/:id/edit
+// GET, /transactions/:id/edit
 exports.edit = function(req, res, model) {
   model.merchant
   .find({ where: { MerchantId: req.params.id } })
@@ -56,7 +72,7 @@ exports.edit = function(req, res, model) {
   });
 };
 
-// PUT, /merchants/:id, update
+// PUT, /transactions/:id, update
 exports.update = function(req, res, model) {
   model.merchant
   .find({ where: { MerchantId: req.body.merchant_id } })
@@ -71,7 +87,7 @@ exports.update = function(req, res, model) {
   });
 };
 
-// DELETE, /users/:id, destroy
+// DELETE, /transactions/:id, destroy
 exports.destroy = function (req, res, model) {
   model.merchant
   .destroy({ MerchantId: req.params.id } )
@@ -79,6 +95,7 @@ exports.destroy = function (req, res, model) {
       res.json({ message: 'Deleted' });
   });
 };
+
 
 // HTTP;  PATH;           METHOD;       DESCRIPTION
 // GET    /users          index         list all users

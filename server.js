@@ -1,6 +1,4 @@
 // set up =====================
-require('newrelic');
-
 var 
     http            = require('http')
     , flash           = require('connect-flash')
@@ -17,6 +15,7 @@ var
     , db              = require('./app/model/index.js')
     , config          = require('./config/config.js')
     , stripe          = require('stripe')(process.env.stripeTestSecret)
+    , newrelic        = require('newrelic')
     , env             = (process.env.NODE_ENV || 'development');
 
 

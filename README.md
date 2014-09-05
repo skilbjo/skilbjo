@@ -70,6 +70,8 @@ How to run (in the command line with either Foreman/NF or in the Procfile) the d
 
 nf start -e env/prod.env -x 8080
 
+nf start -x 8080 -e env/dev.env 
+
 How to change the Foreman/NF port from 5000 to 8080
 
 Answer: nf start -p 8080 || nf start -x 8080

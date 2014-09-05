@@ -63,7 +63,8 @@ var model = {
 // controllers ========
 var controller = {
   static_pages  : require('./app/controller/static_pages.js'),
-  merchant      : require('./app/controller/merchant.js')
+  merchant      : require('./app/controller/merchant.js'),
+  transaction   : require('./app/controller/transaction.js')
 };
 
 // routes =============
@@ -74,7 +75,7 @@ require('./app/routes.js')(app
   );
 
 // launch ===================
-db.sequelize.sync({ force: false }).complete(function(err) {
+db.sequelize.sync({ force: true }).complete(function(err) {
   if (err) { throw err[0] ; } else {
     http.createServer(app).listen(app.get('port'), function(){ 
       console.log('The magic happens on port ' + app.get('port'));

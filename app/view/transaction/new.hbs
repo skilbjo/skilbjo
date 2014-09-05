@@ -1,0 +1,23 @@
+{{> head}}
+
+<script type='text/javascript' src='https://js.stripe.com/v2/'></script>
+<script src="/public/js/transaction/new.js"></script>
+
+<div class='container'>
+	<div class='jumbotron text-center'>
+		<h1><span class='fa fa-lock'></span>Transaction</h1>
+	</div>
+</div>
+
+<div>
+	<form action='/transactions' method='post' id='payment-form'>
+		<span class='payment-errors'></span>
+		Card number : <input data-stripe='number' value='4242424242424242' autofocus />			<br />
+		CVC 				:	<input data-stripe="cvc" value='123' /> 															<br />
+		Exp Month 	: <input data-stripe="exp-month" value='01' />													<br />
+		Exp Year 		: <input data-stripe="exp-year" value='15' /> 													<br />
+		<button type='submit'>Submit</button>
+	</form>
+</div>
+
+{{> footer}}

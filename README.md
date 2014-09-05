@@ -1,5 +1,11 @@
 ##MPR
 
+###Dev Startup
+
+```
+nf start -x 8080 -e env/dev.env -f env/Procfile.dev
+``` 
+
 ###What
 
 mpr is an app that experiments with using the Javascript language for the (most - database will be SQL) stack; and that opens up merchant profitability reporting with an open and RESTful API.

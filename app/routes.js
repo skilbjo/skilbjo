@@ -30,7 +30,7 @@ module.exports = function(app
   // RESTful API ==================
   app.route('/transactions')
     .get(function(req, res) { controller.transaction.index(req, res, model); })
-   	.post(function(req, res) { controller.transaction.create(req, res, model); });
+   	.post(function(req, res) { controller.transaction.create(req, res, model, stripe); });
 
    app.route('/transactions/:id([0-9]+)')
    	.get(function(req, res) { controller.transaction.show(req, res, model); })

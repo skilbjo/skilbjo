@@ -1,11 +1,14 @@
 module.exports = function(sequelize, DataTypes) {
   var Merchant = sequelize.define('Merchant', {
-    MerchantId: { type: DataTypes.INTEGER,
+    MerchantId: { 
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
+      notNull: false,
       autoIncrement: true
     },
-    Name: { type: DataTypes.STRING,
+    Name: { 
+      type: DataTypes.STRING,
+      allowNull: false,
       set: function(v) {
         return this.setDataValue('Name', v.toString() );
       }

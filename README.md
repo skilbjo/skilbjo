@@ -76,6 +76,8 @@ How to change the Foreman/NF port from 5000 to 8080
 
 Answer: nf start -p 8080 || nf start -x 8080
 
+nf start -x 8080 -e env/dev.env -f env/Procfile.dev 
+
 ###Useful tricks
 
 If for some reason you get something like this:

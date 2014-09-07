@@ -13,18 +13,36 @@ exports.new = function(req, res) {
 
 // POST, /transactions, create
 exports.create = function(req, res, model, stripe) {
-  var token = req.body.stripe_token;   //  || req.param('id'); // this is correct
+  //  || req.param('id'); // this is correct
 
-  model.transaction
-  .create({ 
-    Amount: 1.00 
-  })
-  .complete(function(err, transaction) {
-    if(err || !transaction) {
-      res.json(err); return;
-    } else {
-      res.json(transaction);
+  stripe.charges.create({
+    amount: 100
+    , currency: "usd"
+    , card: req.body.stripeToken
+    , description: "hi hi"
+  }, function(err, charge) {
+      if(err || !charge) {
+        res.json(err); return;
+      } else {
+        model.transaction
+          .create({ 
+            Amount: 1.00 
+            , MerchantId: 1
+            , StripeId: charge.id
+            , CardId: charge.card.id
+            , Network: charge.card.brand
+            , CardType: charge.card.funding
+          })
+          .complete(function(err, transaction) {
+            if(err || !transaction) {
+              res.json(err); return;
+            } else {
+              res.json(transaction);
+            }
+          });
+      }
     }
+  );
 };
 
 

@@ -42,4 +42,19 @@ module.exports = function(app
 
    app.route('/transactions/:id([0-9]+)/edit')
    	.get(function(req, res) { res.json({ message: 'Sorry, no edit path.'}); });
+
+// TWITTER ===========================
+  // RESTful API ==================
+  app.route('/twitter')
+    .get(function(req, res) { controller.twitter.index(req, res); });
+
+  app.route('/twitter/user')
+    .post(function(req, res) { controller.twitter.user(req, res); });
+
+  app.route('/twitter/topic')
+    .post(function(req, res) { controller.twitter.topic(req, res); });
+
+  app.route('/twitter/stream')
+    .post(function(req, res) { controller.twitter.stream(req, res); });
+  
 };

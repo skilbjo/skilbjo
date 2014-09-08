@@ -59,44 +59,6 @@ exports.show = function(req, res, model) {
 };  
 
 
-  // model.transaction
-  // .create({ 
-  //   MerchantId: id, 
-  //   Name: name 
-  // })
-  // .complete(function(err, merchant) {
-  //   if(err || !merchant) {
-  //     res.json(err); return;
-  //   } else {
-  //     res.json(merchant);
-  //   }
-
-
-/*
-https://stripe.com/docs/api/node
-
-  stripe.charges.create({
-  amount: 400,
-  currency: "usd",
-  card: "tok_2xMip06Pyco4ZO", // obtained with Stripe.js
-  metadata: {'order_id': '6735'}
-});
-
-*/
-
-// GET, /transactions/:id, show
-// exports.show = function(req, res, model) {
-//   model.merchant
-//   .find({ where: { MerchantId: req.params.id } })
-//   .complete(function(err, merchant) {
-//     if(err || !merchant) {
-//       res.json(err); return;
-//     } else {
-//       res.json(merchant);
-// //     }
-// //   });
-// // };  
-
 // // GET, /transactions/:id/edit
 // exports.edit = function(req, res, model) {
 //   model.merchant

@@ -1,11 +1,11 @@
 {
-  "name": "mpr",
+  "name": "txn",
   "main": "server.js",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/skilbjo/mpr.git"
+    "url": "https://github.com/skilbjo/txn.git"
   },
   "engines": {
     "node": "0.10.31"
@@ -32,6 +32,7 @@
     , "lodash": "2.4.1"
     , "stripe": "2.8.0"
     , "newrelic": "1.10.3"
+    , "twit": "1.1.18"
   },
   "devDependencies": {
     "nodemon": "1.2.1"

@@ -55,15 +55,16 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 // MVC Definitions =============
 // models =============
 var model = {
-  merchant      : app.get('models').Merchant,
-  transaction   : app.get('models').Transaction
+  merchant      : app.get('models').Merchant
+  , transaction   : app.get('models').Transaction
 };
 
 // controllers ========
 var controller = {
-  static_pages  : require('./app/controller/static_pages.js'),
-  merchant      : require('./app/controller/merchant.js'),
-  transaction   : require('./app/controller/transaction.js')
+  static_pages    : require('./app/controller/static_pages.js')
+  , merchant      : require('./app/controller/merchant.js')
+  , transaction   : require('./app/controller/transaction.js')
+  , twitter       : require('./app/controller/twitter.js')
 };
 
 // routes =============

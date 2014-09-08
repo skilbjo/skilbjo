@@ -45,6 +45,19 @@ exports.create = function(req, res, model, stripe) {
   );
 };
 
+// GET, /merchants/:id, show
+exports.show = function(req, res, model) {
+  model.transaction
+  .find({ where: { TransactionId: req.params.id } })
+  .complete(function(err, transaction) {
+    if(err || !transaction) {
+      res.json(err); return;
+    } else {
+      res.json(transaction);
+    }
+  });
+};  
+
 
   // model.transaction
   // .create({ 

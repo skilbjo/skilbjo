@@ -34,7 +34,7 @@ module.exports = function(app
 
    app.route('/transactions/:id([0-9]+)')
    	.get(function(req, res) { controller.transaction.show(req, res, model); })
-   	.put(function(req, res) { controller.transaction.update(req, res, model); })
+   	.put(function(req, res) { res.json({ message: 'Sorry, no update path'}); })
    	.delete(function(req, res) { controller.transaction.destroy(req, res, model); });
 
   app.route('/transactions/new')

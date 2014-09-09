@@ -13,13 +13,54 @@ exports.index = function(req, res, model) {
 // POST, /twitter/search/user, user
 exports.user = function(req, res) {
   T.get('statuses/user_timeline', { screen_name: req.body.user, count: 5, include_rts: false }, function(err, tweets, response) {
-    console.log(tweets[0]);
+
+  console.log(JSON.stringify(tweets));
+
+  var listTweets = function(err, tweets) {
+    for (var i = 0; i < Object.keys(tweets).length; i++) {
+      console.log('Tweet #%s: ' +tweets[i].text, i+1);
+    };
+  }
+
+  listTweets(err, tweets);
+
+
+  // var arr = [];
+
+  // var listTweets = function(err, arr, list) {
+  //   for (var i = 0; i < Object.keys(tweets).length; i++) {
+  //     arr.push('Tweet #%s: ' +list[i].text, i+1);
+  //   }
+  // };
+  // listTweets(err, arr, tweets);
+
+  // console.log(arr);
+
+
     // console.log(tweets[0].text);
-    var result = [];
-    // for (i = 0; i <= 3; i++) {
-      result.push(tweets[0].text);
+    // console.log('-----');
+
+    // res.json(tweets[0]);
+    // var arr = [];
+
+    // // var listTweets = function( arr ) {
+    // //   arr.map( function(tweet) { return arr.push(tweet.text); });
+    // // };
+
+    // // listTweets(arr);
+
+    // // console.log(arr);
+    // var listTweets(arr) {
+    //   for (i = 0; i <= 3; i++) {
+    //     result.push(arr[i].text);
+    //   };
     // };
-    res.json(result);
+
+    // res.json(listTweets())
+
+    // function event() {
+    //   res.json(listTweets(arr));
+    // };
   });
 };
 

@@ -50,16 +50,7 @@ Configure the database (assuming `postgres` is running at `/usr/local/var/postgr
 
 	$ postgres -D /usr/local/var/postgres
 	
-Ensure the following query returns a resultset: 
-	
-	select 
-		datname 
-	from 
-		pg_database
-	where
-		datistemplate = false;
-		
-or run the following:
+Ensure the following returns a list of dbs: 
 
 	$ psql
 	
@@ -89,6 +80,7 @@ heroku open
 - Twilio API
 - Paypal API
 - Write tests (make tests, Makefile)
+- Use Flash messages
 
 ###Useful tricks
 

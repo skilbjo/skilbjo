@@ -1,6 +1,7 @@
+var stripe   = require('stripe')(process.env.STRIPE_TEST_SECRET);
+
 // GET, /transactions, index
 exports.index = function(req, res, model) {
-  console.log('index');
   model.transaction.findAll().success(function(transactions) {
     res.json(transactions);
   });
@@ -12,21 +13,22 @@ exports.new = function(req, res) {
 };
 
 // POST, /transactions, create
-exports.create = function(req, res, model, stripe) {
-  //  || req.param('id'); // this is correct
+exports.create = function(req, res, model) {
+  //  || req.param('id'); // this is correct 
 
   stripe.charges.create({
     amount: 100
     , currency: "usd"
     , card: req.body.stripeToken
-    , description: "hi hi"
+    , description: "txn"
   }, function(err, charge) {
       if(err || !charge) {
         res.json(err); return;
       } else {
+        console.log(charge);
         model.transaction
           .create({ 
-            Amount: 1.00 
+            Amount: (charge.amount / 100)
             , MerchantId: 1
             , StripeId: charge.id
             , CardId: charge.card.id

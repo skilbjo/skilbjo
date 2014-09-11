@@ -13,8 +13,6 @@ var
     , bodyParser      = require('body-parser')
     , hbs  	          = require('hbs')
     , db              = require('./app/model/index.js')
-    , config          = require('./config/config.js')
-    , stripe          = require('stripe')(process.env.STRIPE_TEST_SECRET)
     , newrelic        = require('newrelic')
     , env             = (process.env.NODE_ENV || 'development');
 
@@ -71,7 +69,6 @@ var controller = {
 require('./app/routes.js')(app
   , model
   , controller
-  , stripe
   );
 
 // launch ===================

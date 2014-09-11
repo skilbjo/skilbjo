@@ -1,13 +1,12 @@
 module.exports = function(app
 	, model
 	, controller
-	, stripe
 	) {
 
 // static routes ===================
   app.route('/')
   	.get( controller.static_pages.index )
-  	.post(function(req, res) { res.send('hi this is a post to /'); });
+  	.post(function(req, res) { res.json({ message: 'Sorry, no post path to /'}); });
 
 // MERCHANTS ======================
   // RESTful API ==================
@@ -30,7 +29,7 @@ module.exports = function(app
   // RESTful API ==================
   app.route('/transactions')
     .get(function(req, res) { controller.transaction.index(req, res, model); })
-   	.post(function(req, res) { controller.transaction.create(req, res, model, stripe); });
+   	.post(function(req, res) { controller.transaction.create(req, res, model); });
 
    app.route('/transactions/:id([0-9]+)')
    	.get(function(req, res) { controller.transaction.show(req, res, model); })
@@ -55,6 +54,5 @@ module.exports = function(app
     .post(function(req, res) { controller.twitter.topic(req, res); });
 
   app.route('/twitter/stream')
-    .post(function(req, res) { controller.twitter.stream(req, res); });
-  
+    .post(function(req, res) { controller.twitter.streamOn(req, res); });
 };

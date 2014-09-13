@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 REPORTER = nyan
 
 test:

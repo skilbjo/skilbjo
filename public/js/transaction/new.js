@@ -5,6 +5,7 @@ $(document).ready(function() {
    var stripeResponseHandler = function(status, response) {
      var $form = $('#payment-form');
 
+
      if (response.error) {
        // Show the errors on the form
        $form.find('.payment-errors').text(response.error.message);

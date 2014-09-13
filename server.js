@@ -11,7 +11,7 @@ var
     , session         = require('express-session')
     , errorHandler    = require('errorhandler')
     , bodyParser      = require('body-parser')
-    , hbs  	          = require('hbs')
+    , marked          = require('marked').setOptions({ breaks: true })
     , db              = require('./app/model/index.js')
     , newrelic        = require('newrelic')
     , env             = (process.env.NODE_ENV || 'development');
@@ -26,34 +26,16 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/public', express.static('public'));
 
 // view template engine
-app.set('view engine', 'hbs');
+app.set('view engine', 'jade');
 app.set('views', __dirname + '/app/view');
 
 // models
 app.set('models', require('./app/model'));
 
-// handlebars helpers =========
-hbs.handlebars = require('handlebars');  
-hbs.registerPartials(__dirname + '/app/view/template');
-hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
-    var operators, result;
-    if (options === undefined) { options = rvalue; rvalue = operator; operator = "==="; }
-    operators = {
-        '=='    : function (l, r) { return l == r; }, '==='   : function (l, r) { return l === r; },
-        '!='    : function (l, r) { return l != r; }, '!=='   : function (l, r) { return l !== r; },
-        '<'     : function (l, r) { return l < r; }, '>'      : function (l, r) { return l > r; },
-        '<='    : function (l, r) { return l <= r; }, '>='    : function (l, r) { return l >= r; },
-        'typeof': function (l, r) { return typeof l == r; }
-    };
-    if (!operators[operator]) { throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator); }
-    result = operators[operator](lvalue, rvalue);
-    if (result) { return options.fn(this); } else { return options.inverse(this); }
-});
-
 // MVC Definitions =============
 // models =============
 var model = {
-  merchant      : app.get('models').Merchant
+  merchant        : app.get('models').Merchant
   , transaction   : app.get('models').Transaction
 };
 

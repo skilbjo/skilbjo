@@ -1,0 +1,22 @@
+include ../template/head
+
+h4 Twitter
+
+form(action='/twitter/user' method='post')
+	label Search User  
+		input(name='user' value='@SimonOstrovsky' autofocus)
+		button(type='submit' value='submit') submit
+
+form(action='/twitter/topic' method='post')
+	label Search Topic  
+		input(name='topic' value='Ukraine')
+		button(type='submit' value='submit') submit
+
+form(action='/twitter/stream' method='post')
+	label Stream Topic  
+		input(name='stream' value='#apple')
+		input(name='toggle' value='true' hidden)
+		button(type='submit' value='submit') submit
+
+
+include ../template/footer

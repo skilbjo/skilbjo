@@ -24,10 +24,10 @@ exports.user = function(req, res) {
 
 // POST, /twitter/topic, topic
 exports.topic = function(req, res) {
-  T.get('search/tweets', { q: req.body.topic, count: 2 }, function(err, tweets, response) {
+  T.get('search/tweets', { q: req.body.topic, count: 20 }, function(err, tweets, response) {
 
   var arr = []; var listTweetText = function(err, tweets) {
-    for (var i = 0; i < Object.keys(tweets).length; i++) { arr.push(tweets.statuses[i].text, i); }
+    for (var i = 0; i < Object.keys(tweets.statuses).length; i++) { arr.push(tweets.statuses[i].text, i); }
   }; listTweetText(err, tweets);
 
   res.json(arr);

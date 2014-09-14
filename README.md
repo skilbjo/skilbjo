@@ -3,7 +3,7 @@
 ###Dev Startup
 
 ```
-nf start -x 8080 -e env/dev.env
+nf start -x 8080 -e lib/env/dev.env
 ```
 
 

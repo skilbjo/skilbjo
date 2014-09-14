@@ -55,4 +55,12 @@ module.exports = function(app
 
   app.route('/twitter/stream')
     .post(function(req, res) { controller.twitter.streamOn(req, res); });
+
+// TWILIO ============================
+  // RESTful API ==================
+  app.route('/twilio')
+    .get(function(req, res) { controller.twilio.index(req, res); });
+
+  app.route('/twilio/sms')
+    .post(function(req, res) { controller.twilio.sms(req, res); });
 };

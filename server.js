@@ -1,20 +1,20 @@
 // set up =====================
 var 
-    http            = require('http')
-    , flash           = require('connect-flash')
-    , express         = require('express')
-    , app             = express()
-    , morgan          = require('morgan')
-    , favicon         = require('serve-favicon')
-    , cookieParser    = require('cookie-parser')
-    , methodOverride  = require('method-override')
-    , session         = require('express-session')
-    , errorHandler    = require('errorhandler')
-    , bodyParser      = require('body-parser')
-    , marked          = require('marked').setOptions({ breaks: true })
-    , db              = require('./app/model/index.js')
-    , newrelic        = require('newrelic')
-    , env             = (process.env.NODE_ENV || 'development');
+  http            = require('http')
+  , flash           = require('connect-flash')
+  , express         = require('express')
+  , app             = express()
+  , morgan          = require('morgan')
+  , favicon         = require('serve-favicon')
+  , cookieParser    = require('cookie-parser')
+  , methodOverride  = require('method-override')
+  , session         = require('express-session')
+  , errorHandler    = require('errorhandler')
+  , bodyParser      = require('body-parser')
+  , marked          = require('marked').setOptions({ breaks: true })
+  , db              = require('./app/model/index.js')
+  , newrelic        = require('newrelic')
+  , env             = (process.env.NODE_ENV || 'development');
 
 // configuration ==============
   // boilerplate
@@ -45,6 +45,7 @@ var controller = {
   , merchant      : require('./app/controller/merchant.js')
   , transaction   : require('./app/controller/transaction.js')
   , twitter       : require('./app/controller/twitter.js')
+  , twilio        : require('./app/controller/twilio.js')
 };
 
 // routes =============

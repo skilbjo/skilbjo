@@ -1,11 +1,11 @@
 {
-  "name": "txn",
+  "name": "messing-around-with-apis",
   "main": "server.js",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/skilbjo/txn.git"
+    "url": "https://github.com/skilbjo/skilbjo.git"
   },
   "engines": {
     "node": "0.10.31"

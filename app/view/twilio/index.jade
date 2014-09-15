@@ -5,7 +5,7 @@ h4 Twilio
 h5 Send an SMS
 form(action='/twilio/sms' method='post')
 	label Phone Number 
-		input(name='sms_number' value='4159713359' autofocus)
+		input(name='sms_number' value='415971335' autofocus)
 	br
 	label SMS body
 		input(name='sms_message' value='Nice work on the Twilio integration mate!')
@@ -14,7 +14,7 @@ form(action='/twilio/sms' method='post')
 h5 Place a call
 form(action='/twilio/voice' method='post')
 	label Phone Number 
-		input(name='voice_number' value='4159713359' autofocus)
+		input(name='voice_number' value='415971335' autofocus)
 	button(type='submit' value='submit') submit call
 
 include ../template/footer

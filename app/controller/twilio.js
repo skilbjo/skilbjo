@@ -33,7 +33,7 @@ exports.sms = function(req, res) {
 // POST, /twilio/voice, voice
 exports.voice = function(req, res) {
   twilio.makeCall({
-    url: 'http://txn.herokuapp.com/public/twilio/call',
+    url: 'http://skilbjo.herokuapp.com/public/twilio/call',
     to: req.body.voice_number,
     from: process.env.TWILIO_LIVE_NUMBER
   }, function(err, message) {

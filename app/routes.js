@@ -63,4 +63,11 @@ module.exports = function(app
 
   app.route('/twilio/sms')
     .post(function(req, res) { controller.twilio.sms(req, res); });
+
+  app.route('/twilio/voice')
+    .post(function(req, res) { controller.twilio.voice(req, res); }); 
+
+  app.route('/public/twilio/call')
+    .get(function(req, res) { res.sendFile('/public/twilio/call.xml', { root: './' }) }); 
+
 };
